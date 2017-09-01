@@ -7,10 +7,7 @@ else {
   echo header("Location: http://thelibertycoalition.org/");
 }
 include_once 'includes/connection.php';
-
-$added = $_GET['added'];
-$deleted = $_GET['deleted'];
-$edited = $_GET['edited'];
+$id = $_GET['id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -76,53 +73,31 @@ $edited = $_GET['edited'];
         <div class="col-lg-12 text-center">
           <? if($added==1) { echo '<div class="alert alert-success col-sm-12"><p>Organization Added</p></div>';}?>
           <? if($deleted==1) { echo '<div class="alert alert-danger col-sm-12"><p">Organization Deleted</p></div>';}?>
-          <? if($edited==1) { echo '<div class="alert alert-success col-sm-12"><p">Organization Edited</p></div>';}?>
           <h3 class="mt-5">Add Relief Agencies</h3>
           <br />
-          <form method="post" action="addrelief.php">
+          <form method="post" action="changerelief.php">
             <table class="table col-lg-8">
-            <tr><td><label>Organization</label></td><td><input type="text" name="organization"></td></tr>
-            <tr><td><label>Address</label></td><td><input type="text" name="address"></td></tr>
-            <tr><td><label>City</label></td><td><input type="text" name="city"></td></tr>
-            <tr><td><label>State</label></td><td><input type="text" name="state"></td></tr>
-            <tr><td><label>Zipcode</label></td><td><input type="text" name="zipcode"></td></tr>
-            <tr><td><label>Contact Person</label></td><td><input type="text" name="contactperson"></td></tr>
-            <tr><td><label>Phone Number</label></td><td><input type="text" name="phonenumber"></td></tr>
-            <tr><td><label>Website</label></td><td><input type="text" name="website"></td></tr>
-            <tr><td><label>Other Info</label></td><td><input type="textbox" name="otherinfo"></td></tr>
-            <tr><td></td><td><button class="btn" type="submit">Submit</button></td></tr>
+              <?
+                $stmt = $pdo->query('SELECT * FROM reliefagencies WHERE id="'.$id.'"');
+                while ($row = $stmt->fetch())
+                {
+                    echo "
+                    <tr><td><label>Organization</label></td><td><input type=\"text\" name=\"organization\" value=\"". $row['organization'] ."\"></td></tr>
+                    <tr><td><label>Address</label></td><td><input type=\"text\" name=\"address\" value=\"". $row['address'] ."\"></td></tr>
+                    <tr><td><label>City</label></td><td><input type=\"text\" name=\"city\" value=\"". $row['city'] ."\"></td></tr>
+                    <tr><td><label>State</label></td><td><input type=\"text\" name=\"state\" value=\"". $row['state'] ."\"></td></tr>
+                    <tr><td><label>Zipcode</label></td><td><input type=\"text\" name=\"zipcode\" value=\"". $row['zipcode'] ." \"></td></tr>
+                    <tr><td><label>Contact Person</label></td><td><input type=\"text\" name=\"contactperson\" value=\"". $row['contactperson'] ."\"></td></tr>
+                    <tr><td><label>Phone Number</label></td><td><input type=\"text\" name=\"phonenumber\" value=\"". $row['phonenumber'] ."\"></td></tr>
+                    <tr><td><label>Website</label></td><td><input type=\"text\" name=\"website\" value=\"". $row['website'] ." \"></td></tr>
+                    <tr><td><label>Other Info</label></td><td><input type=\"textbox\" name=\"otherinfo\" value=\"". $row['otherinfo'] ."\"></td></tr>
+                    <input type=\"hidden\" name=\"id\" value=\"" . $id . "\">
+                    <tr><td></td><td><button class=\"btn\" type=\"submit\">Submit</button></td></tr>";
+                }
+              ?>
+
           </table>
           </form>
-        </div>
-      </div>
-    </div>
-
-    <!-- Page Content -->
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 text-center">
-          <h3 class="mt-5">Relief Agencies</h3>
-          <br />
-          <?
-            $stmt = $pdo->query('SELECT * FROM reliefagencies ORDER BY organization ASC');
-            while ($row = $stmt->fetch())
-            {
-                echo "<div class=\"card\">
-                        <div class=\"card-body\">
-                          <h4 class=\"card-title\">"
-                            . $row['organization'] .
-                          "</h4>
-                          <h6 class=\"card-subtitle mb-2 text-muted\">"
-                          . $row['address'] . " " . $row['city'] . ", " . $row['state'] . " " . $row['zipcode'] .
-                          "</h6>
-                          <a href=\" ". $row['weblink'] ." \" class=\"card-link\">" . $row['weblink'] . "</a>
-                          <p class=\"card-text\">" . $row['contactperson'] . " " . $row['phonenumber'] ."</p>
-                          <p class=\"card-text\">" . $row['otherinfo'] ." </p>
-                          <a href=\"editrelief.php?id=" . $row['id'] . "\" class=\"btn btn-warning\">Edit</a><a href=\"deleterelief.php?id=" . $row['id'] . "\" class=\"btn btn-danger\">Delete</a>
-                        </div>
-                      </div>";
-            }
-          ?>
         </div>
       </div>
     </div>
