@@ -80,7 +80,7 @@ include_once 'includes/connection.php';
                           <h6 class=\"card-subtitle mb-2 text-muted\">"
                           . $row['phonenumber'] .
                           "</h6>
-                          <p class=\"card-text\">" . $row['city'] . " " . $row['state'] ."</p>
+                          <p class=\"card-text\">" . $row['city'] . " " . $row['state'] ." " . $row['zipcode'] . "</p>
                           <p class=\"card-text\">" . $row['otherinfo'] ." </p>
                         </div>
                       </div>";
