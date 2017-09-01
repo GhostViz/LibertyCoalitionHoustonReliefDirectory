@@ -7,10 +7,7 @@ else {
   echo header("Location: http://thelibertycoalition.org/");
 }
 include_once 'includes/connection.php';
-
-$added = $_GET['added'];
-$deleted = $_GET['deleted'];
-$edited = $_GET['edited'];
+$id = $_GET['id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -76,49 +73,28 @@ $edited = $_GET['edited'];
         <div class="col-lg-12 text-center">
           <? if($added==1) { echo '<div class="alert alert-success col-sm-12"><p>Lodging Added</p></div>';}?>
           <? if($deleted==1) { echo '<div class="alert alert-danger col-sm-12"><p">Lodging Deleted</p></div>';}?>
-          <? if($edited==1) { echo '<div class="alert alert-success col-sm-12"><p">Lodging Edited</p></div>';}?>
-          <h3 class="mt-5">Add Lodging</h3>
+          <h3 class="mt-5">Edit Lodging</h3>
           <br />
-          <form method="post" action="addlodging.php">
+          <form method="post" action="changelodging.php">
+
             <table class="table col-lg-8">
-            <tr><td><label>Contact Person</label></td><td><input type="text" name="contactperson"></td></tr>
-            <tr><td><label>Phone Number</label></td><td><input type="text" name="phonenumber"></td></tr>
-            <tr><td><label>City</label></td><td><input type="text" name="city"></td></tr>
-            <tr><td><label>State</label></td><td><input type="text" name="state"></td></tr>
-            <tr><td><label>Zipcode</label></td><td><input type="text" name="zipcode"></td></tr>
-            <tr><td><label>Other Info</label></td><td><input type="text" name="otherinfo"></td></tr>
-            <tr><td></td><td><button class="btn" type="submit">Submit</button></td></tr>
+              <?
+                $stmt = $pdo->query('SELECT * FROM housing WHERE id="'.$id.'"');
+                while ($row = $stmt->fetch())
+                {
+                    echo "<tr><td><label>Contact Person</label></td><td><input type=\"text\" name=\"contactperson\" value=\" " . $row['contactperson'] . " \"></td></tr>
+                          <tr><td><label>Phone Number</label></td><td><input type=\"text\" name=\"phonenumber\" value=\" " . $row['phonenumber'] . " \"></td></tr>
+                          <tr><td><label>City</label></td><td><input type=\"text\" name=\"city\" value=\" " . $row['city'] . " \"></td></tr>
+                          <tr><td><label>State</label></td><td><input type=\"text\" name=\"state\" value=\" " . $row['state'] . " \"></td></tr>
+                          <tr><td><label>Zipcode</label></td><td><input type=\"text\" name=\"zipcode\" value=\" " . $row['zipcode'] . " \"></td></tr>
+                          <tr><td><label>Other Info</label></td><td><input type=\"text\" name=\"otherinfo\" value=\" " . $row['otherinfo'] . " \"></td></tr>
+                          <input type=\"hidden\" name=\"id\" value=\" " . $id . " \">
+                          <tr><td></td><td><button class=\"btn\" type=\"submit\">Submit</button></td></tr>";
+                }
+              ?>
+
           </table>
           </form>
-        </div>
-      </div>
-    </div>
-
-    <!-- Page Content -->
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 text-center">
-          <h3 class="mt-5">Lodging Assistance</h3>
-          <br />
-          <?
-            $stmt = $pdo->query('SELECT * FROM housing ORDER BY city ASC');
-            while ($row = $stmt->fetch())
-            {
-                echo "<div class=\"card\">
-                        <div class=\"card-body\">
-                          <h4 class=\"card-title\">"
-                            . $row['contactperson'] .
-                          "</h4>
-                          <h6 class=\"card-subtitle mb-2 text-muted\">"
-                          . $row['phonenumber'] .
-                          "</h6>
-                          <p class=\"card-text\">" . $row['city'] . " " . $row['state'] . " " . $row['zipcode'] . "</p>
-                          <p class=\"card-text\">" . $row['otherinfo'] ." </p>
-                          <a href=\"editlodging.php?id=" . $row['id'] . "\" class=\"btn btn-warning\">Edit</a> <a href=\"deletelodging.php?id=" . $row['id'] . "\" class=\"btn btn-danger\">Delete</a>
-                        </div>
-                      </div>";
-            }
-          ?>
         </div>
       </div>
     </div>
