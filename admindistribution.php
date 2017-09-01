@@ -10,6 +10,7 @@ include_once 'includes/connection.php';
 
 $added = $_GET['added'];
 $deleted = $_GET['deleted'];
+$edited = $_GET['edited'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -75,6 +76,8 @@ $deleted = $_GET['deleted'];
         <div class="col-lg-12 text-center">
           <? if($added==1) { echo '<div class="alert alert-success col-sm-12"><p>Distribution Center Added</p></div>';}?>
           <? if($deleted==1) { echo '<div class="alert alert-danger col-sm-12"><p">Distribution Center Deleted</p></div>';}?>
+          <? if($edited==1) { echo '<div class="alert alert-success col-sm-12"><p">Distribution Center Edited</p></div>';}?>
+
           <h3 class="mt-5">Add Distribution Centers</h3>
           <br />
           <form method="post" action="adddistribution.php">
