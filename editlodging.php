@@ -82,13 +82,13 @@ $id = $_GET['id'];
                 $stmt = $pdo->query('SELECT * FROM housing WHERE id="'.$id.'"');
                 while ($row = $stmt->fetch())
                 {
-                    echo "<tr><td><label>Contact Person</label></td><td><input type=\"text\" name=\"contactperson\" value=\" " . $row['contactperson'] . " \"></td></tr>
-                          <tr><td><label>Phone Number</label></td><td><input type=\"text\" name=\"phonenumber\" value=\" " . $row['phonenumber'] . " \"></td></tr>
-                          <tr><td><label>City</label></td><td><input type=\"text\" name=\"city\" value=\" " . $row['city'] . " \"></td></tr>
-                          <tr><td><label>State</label></td><td><input type=\"text\" name=\"state\" value=\" " . $row['state'] . " \"></td></tr>
-                          <tr><td><label>Zipcode</label></td><td><input type=\"text\" name=\"zipcode\" value=\" " . $row['zipcode'] . " \"></td></tr>
-                          <tr><td><label>Other Info</label></td><td><input type=\"text\" name=\"otherinfo\" value=\" " . $row['otherinfo'] . " \"></td></tr>
-                          <input type=\"hidden\" name=\"id\" value=\" " . $id . " \">
+                    echo "<tr><td><label>Contact Person</label></td><td><input type=\"text\" name=\"contactperson\" value=\"" . $row['contactperson'] . "\"></td></tr>
+                          <tr><td><label>Phone Number</label></td><td><input type=\"text\" name=\"phonenumber\" value=\"" . $row['phonenumber'] . "\"></td></tr>
+                          <tr><td><label>City</label></td><td><input type=\"text\" name=\"city\" value=\"" . $row['city'] . "\"></td></tr>
+                          <tr><td><label>State</label></td><td><input type=\"text\" name=\"state\" value=\"" . $row['state'] . "\"></td></tr>
+                          <tr><td><label>Zipcode</label></td><td><input type=\"text\" name=\"zipcode\" value=\" " . $row['zipcode'] . "\"></td></tr>
+                          <tr><td><label>Other Info</label></td><td><input type=\"text\" name=\"otherinfo\" value=\"" . $row['otherinfo'] . "\"></td></tr>
+                          <input type=\"hidden\" name=\"id\" value=\"" . $id . "\">
                           <tr><td></td><td><button class=\"btn\" type=\"submit\">Submit</button></td></tr>";
                 }
               ?>
