@@ -10,6 +10,7 @@ include_once 'includes/connection.php';
 
 $added = $_GET['added'];
 $deleted = $_GET['deleted'];
+$edited = $_GET['edited'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -75,9 +76,10 @@ $deleted = $_GET['deleted'];
         <div class="col-lg-12 text-center">
           <? if($added==1) { echo '<div class="alert alert-success col-sm-12"><p>1 Crowdfund Added</p></div>';}?>
           <? if($deleted==1) { echo '<div class="alert alert-danger col-sm-12"><p">1 Crowdfund Deleted</p></div>';}?>
+          <? if($edited==1) { echo '<div class="alert alert-success col-sm-12"><p">1 Crowdfund Edited</p></div>';}?>
           <h3 class="mt-5">Add Crowdfund</h3>
           <br />
-          <form method="post" action="addcrowdfunding.php">
+          <form method="post" action="editcrowdfunding.php">
             <table class="table col-lg-8">
               <tr><td><label>Organization</label></td><td><input type="text" name="organization"></td></tr>
             <tr><td><label>Contact Person</label></td><td><input type="text" name="contactperson"></td></tr>
